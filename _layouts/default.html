@@ -50,6 +50,13 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	<script>if (!window.jQuery) {document.write('<script src="/js/jquery.min.js"><\/script>');}</script>
 	<script src="js/custom.js"></script>
+	<script>
+		window.jQuery(document).ready(function(){
+			window.jQuery.getJSON("http://test1-backend.herokuapp.com/data.json", function(data){
+				console.log(data);
+				});
+			});
+	</script>
 
     <!-- Analytics
     ================================================== -->
