@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="myApp">
 	<head>
 		<meta charset="utf-8"/>
 		<title>{% if page.title %} {{ page.title }} {% endif %} - Main website name</title>
@@ -26,6 +26,17 @@
 		<link rel="shortcut icon" href="ico/favicon.png">
 		
 		<script src="http://code.angularjs.org/1.0.6/angular.min.js"></script>
+		
+		<script>
+			console.log('script body end');
+			var myApp = angular.module('myApp', [], function($interpolateProvider) {
+				console.log('changing the delimiters');
+				$interpolateProvider.startSymbol('[[');
+				$interpolateProvider.endSymbol(']]');
+			});
+			console.log('script body end');
+			console.log('the app is: ', myApp);
+		</script>
 	</head>
 	<body>
 	<!-- Header
@@ -43,7 +54,7 @@
 	<footer role="contentinfo">
 		<div>
 			<input ng-model="name">
-			<p>Hello {{name}}!</p>
+			<p ng-init=" name='World' ">Hello [[name]]!</p>
 		</div>
 	</footer>
 
