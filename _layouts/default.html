@@ -28,14 +28,28 @@
 		<script src="http://code.angularjs.org/1.0.6/angular.min.js"></script>
 		
 		<script>
-			console.log('script body end');
 			var myApp = angular.module('myApp', [], function($interpolateProvider) {
 				console.log('changing the delimiters');
 				$interpolateProvider.startSymbol('[[');
 				$interpolateProvider.endSymbol(']]');
 			});
-			console.log('script body end');
-			console.log('the app is: ', myApp);
+			
+			function BackendController($scope) {
+			  $scope.master = {};
+
+			  $scope.resolve = function() {
+				url = "http://test1-backend.herokuapp.com/api/" + $scope.name;
+				window.jQuery.getJSON(url, function(data){
+					console.log(data);
+					$scope.ans = data.ans;
+					$scope.$apply();
+				});
+			  };
+
+			  $scope.reset = function() {
+				$scope.name = 'Ala';
+			  };
+			}
 		</script>
 	</head>
 	<body>
@@ -52,9 +66,9 @@
 	{{ content }}
 
 	<footer role="contentinfo">
-		<div>
-			<input ng-model="name">
-			<p ng-init=" name='World' ">Hello [[name]]!</p>
+		<div ng-controller="BackendController">
+			<input ng-model="name"><button ng-click="resolve(name)">Resolve</button>
+			<p ng-init="reset()">[[name]]: [[ans]]</p>
 		</div>
 	</footer>
 
